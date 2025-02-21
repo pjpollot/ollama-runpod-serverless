@@ -1,18 +1,32 @@
+import os
 import runpod
 
 from ollama import chat
 
 
 def handler(event: dict[str, dict]):
-    prompt = event["input"].get("prompt")
+    args = event["input"]
+
+    prompt = args.get("prompt")
+
     if prompt is None:
-        return {"error": "no prompt given in input."}
+        messages = args.get("messages")
+        if messages is None:
+            return {"error": "no prompt or messages given in input."}
+        
+    else:
+        system = args.get("system")
+
+        messages = []
+        if system is not None:
+            messages.append({"role": "system", "content": system})
+        messages.append({"role": "user", "content": prompt})
     
-    model = event["input"].get("model") or "llama3"
+    model = args.get("model") or os.getenv("MODEL_NAME")
     
     response = chat(
         model=model,
-        messages=[{"role": "user", "content": prompt}],
+        messages=messages,
     )
 
     return response.message.content

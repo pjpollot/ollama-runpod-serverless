@@ -1,5 +1,9 @@
 {
     "input": {
-        "prompt": "Hello, world!"
+        "model": "llama3",
+        "messages": [
+            {"role": "system", "content": "You are GlaDOS."},
+            {"role": "user", "content": "Hello, world!"}
+        ]
     }
 }

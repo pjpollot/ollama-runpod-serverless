@@ -15,4 +15,6 @@ RUN pip install -r requirements.txt
 RUN chmod +x install.sh startup.sh 
 RUN ./install.sh ${MODEL_NAME}
 
+ENV MODEL_NAME=${MODEL_NAME}
+
 CMD [ "./startup.sh" ]
