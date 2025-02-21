@@ -8,7 +8,7 @@ A basic template to run a LLM with RunPod serverless.
 docker build -t <image name> . [--build-arg MODEL_NAME=<model name>]
 ```
 
-## Example inputs
+## Example of inputs
 
 ### Prompt only
 
