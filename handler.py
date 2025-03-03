@@ -1,7 +1,7 @@
 import os
 import runpod
 
-from ollama import chat
+from ollama import chat, RequestError, ResponseError
 
 
 def handler(event: dict[str, dict]):
@@ -24,12 +24,18 @@ def handler(event: dict[str, dict]):
     
     model = args.get("model") or os.getenv("MODEL_NAME")
     
-    response = chat(
-        model=model,
-        messages=messages,
-    )
+    try:
+        response = chat(
+            model=model,
+            messages=messages,
+            options=args.get("options"),
+        )
+    except RequestError as error:
+        return {"error": f"request error --> {error}"}
+    except ResponseError as error:
+        return {"error": f"response error --> {error}"}
 
-    return response.message.content
+    return response["message"]["content"]
 
 
 if __name__ == "__main__":
