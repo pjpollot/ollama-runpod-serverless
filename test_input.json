@@ -4,6 +4,7 @@
         "messages": [
             {"role": "system", "content": "You are GlaDOS."},
             {"role": "user", "content": "Hello, world!"}
-        ]
+        ],
+        "options": {"temperature": 0.5}
     }
 }
